@@ -38,7 +38,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="../assets/js/transaction.js"></script>
 </head>
 
-<body class="register-page sidebar-collapse" onload="getBalance(); Geeks();"></body>>
+<body class="register-page sidebar-collapse" onload="getBalance()" onbeforeunload = "Geeks()"></body>>
   <!--Call an api on load of page-->
   <div class="page-header" style="background-image: url('../assets/img/login-image.jpg');">
     <div class="filter"></div>
@@ -82,24 +82,11 @@ The above copyright notice and this permission notice shall be included in all c
                 <div class="form-group has-success">
                   <input type="text" id = "depositAmount" placeholder ="Insert amount" class="text-muted form-control">
                   </div>  
-            <div class="form-group has-success">
-                <label for="cryptoamount" class="form-label">Input Cryptocurrency amount</label>
-               <input type="number" class="form-control" step="0.005" id="crypto_amount">
-               </div>
-              <div class="form-group has-success">
-              <label for="exampleFormControlSelect1">Select Cryptocurrency_id</label>
-              <select class="form-control" id="crypto_coin">
-                <option>1</option>
-                 <option>2</option>
-                 <option>3</option>
-                  <option>4</option>
-                </select>
               </div>
               <button type="button"  class="btn btn-primary" onclick="postDepositTransaction()">Deposit</button>
               <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
             </div>
           </div>
-        </div>
         </div>
         <!-- withdraw Modal -->
         <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
@@ -116,20 +103,6 @@ The above copyright notice and this permission notice shall be included in all c
                 <div class="form-group has-success">
                   <input type="text" id = "withdrawAmount" placeholder ="Insert amount" value="" class="text-muted form-control">
                   </div>  
-                <div class="form-group has-success">
-                <label for="cryptoamount" class="form-label">Input Cryptocurrency amount</label>
-               <input type="number" class="form-control" step="0.005" id="crypto_amount">
-               </div>
-              <div class="form-group has-success">
-              <label for="exampleFormControlSelect1">Select Cryptocurrency_id</label>
-              <select class="form-control" id="crypto_coin">
-                <option>1</option>
-                 <option>2</option>
-                 <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-
               </div>
               <!--onclick="addMoneyToWalletBalance()", prompt success box if deposit success and close modal-->
               <button type="button"  class="btn btn-primary" onclick="postWithdrawTransaction()">Withdraw</button>

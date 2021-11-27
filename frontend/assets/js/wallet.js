@@ -46,7 +46,7 @@ function postDepositTransaction(){
       }
       fetch('http://localhost:3000/wallet_transaction/add', requestOptions)
       .then((response) => response.text())
-      .then((result) => console("Success"))
+      .then((result) => console.log("Success"))
       .catch((error) => console.log('error', error))
 }
 
