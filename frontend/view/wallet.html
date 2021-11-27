@@ -43,20 +43,91 @@ The above copyright notice and this permission notice shall be included in all c
   <div class="page-header" style="background-image: url('../assets/img/login-image.jpg');">
     <div class="filter"></div>
     <div class="container">
-      <div class="card" style="width: 400px;">
+      <div class="row ">
+        <div class="col-lg-4 ml-auto mr-auto">
+      <div class="card card-register" >
       <img class="card-img-top" src="https://miro.medium.com/max/1838/0*AUhzzy5X_r6P_kxA.jpg" alt="Card image cap">
-      <div class="card-body" id="wallet">
-      <h4 class="card-title">Cryptmon wallet</h4>
-      <h6 class="card-subtitle mb-2 text-muted">Account_id:</h6>
-      <h6 class="card-subtitle mb-2 text-muted">Account_name:</h6>
-      <p class="card-text">Wallet_balance:</p>
-      Enter ID: <input type="text" id="paramId"/> </br>
-      <button class="btn btn-info" onclick="getTransactionByTID()">Search Transaction by TID</button> </br>
-      <button class="btn btn-info" onclick="getTransactionByAID()">Search Transaction by AID</button> </br>
-      <div class="mypanel" id=panel></div>
-      <a href="pet.html" class="card-link">View pet</a>
-      <a href="add_transaction.html" class="card-link">Add transaction</a>
+      <p class="card-subtitle text-center" style="color: #000000; background: #EFEFEF"><b>Account</b></p>
+      <div class="card-body" style="background: #EFEFEF" id="wallet">
+      <h3 class="card-subtitle text-center" style="color: #000000;">Total Balance</h3>
+      <h5 class="display-4 text-center" style="color: #000000;">$500</h5>
+      
+        <h6 class="badge badge-primary" style="padding-top: 1%; padding-bottom: 1%;" >Account ID:</h6><span style="color: #000000;">account_id</span>
+      
+      
+        <h6 class="badge badge-primary" style="padding-top: 1%; padding-bottom: 1%;">Username:</h6><span style="color: #000000;">user_id</span>
+  
+     
+      
+      <!--Enter ID: <input type="text" id="paramId"/> </br>-->
+      <div class="row justify-content-around">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#depositModal">
+          Deposit
+        </button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#withdrawModal">
+          Withdraw
+        </button>
+        <!-- deposit Modal -->
+        <div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="depositModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button></span><h5 class="modal-title" id="exampleModalLabel">Deposit</h5>
+                
+              </div>
+              <div class="modal-body">
+                <p>Input Deposit amount (USD):</p>
+                <div class="form-group has-success">
+                  <input type="text" placeholder ="Insert amount" value="" class="text-muted form-control">
+                  </div>  
+              </div>
+              <!--onclick="addMoneyToWalletBalance()", prompt success box if deposit success and close modal-->
+              <button type="button"  class="btn btn-primary">Deposit</button>
+              <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+        <!-- withdraw Modal -->
+        <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <span><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button></span><h5 class="modal-title" id="exampleModalLabel">Withdraw</h5>
+                
+              </div>
+              <div class="modal-body">
+                <p>Input withdraw amount (USD):</p>
+                <div class="form-group has-success">
+                  <input type="text" placeholder ="Insert amount" value="" class="text-muted form-control">
+                  </div>  
+              </div>
+              <!--onclick="addMoneyToWalletBalance()", prompt success box if deposit success and close modal-->
+              <button type="button"  class="btn btn-primary">Withdraw</button>
+              <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+
       </div>
+      <div class="justify-content-around">
+          <button class="btn btn-info btn-round btn-block" onClick="location.href='pet.html'">
+            <i class="fa fa-heart"></i> View Pets
+          </button>
+      </div>
+      <!--<button class="btn btn-info" onclick="getTransactionByTID()">Search Transaction by TID</button> </br>
+      <button class="btn btn-info" onclick="getTransactionByAID()">Search Transaction by AID</button> </br>-->
+      <div class="row justify-content-around">
+        <button class="btn btn-default btn-round btn-block" onClick="location.href='pet.html'">
+          View Past Transactions
+        </button>
+    </div>
+      </div>
+    </div>  
+    </div>
     </div>
 
     <div class="footer register-footer text-center">
