@@ -57,9 +57,27 @@ router.get("/wallet_transaction/by-aid", (request, response) => {
     );
 });
 
+//Withdraw and Deposit
+
 router.post("/wallet_transaction/add", (request, response) =>{
     let transaction = request.body;
     console.log(`wallet_transaction/add: ${JSON.stringify(transaction)}`);
+
+    function getCurrentBalance(){
+        var query1 = `select wallet_balance from account where account.account_id = ${transaction.account_id}`;
+        console.log(`Query1: ${query1}`);
+        database.connection.query( query, (error, records) =>{
+            if(error){
+                console.log(error)
+                response.status(500).send("Some error occured when adding a wallet transaction");
+            }else{
+                response.status(200).send("Wallet Transaction added succesfully");
+            }
+        })
+    }
+
+
+
     var query = `insert into wallet_transaction (transaction_id ,transaction_date, account_id, cryptocurrency_amount, cryptocurrency_id, usd_amount)
     values (null ,now(), "${transaction.account_id}", "${transaction.cryptocurrency_amount}", "${transaction.cryptocurrency_id}", "${transaction.cryptocurrency_amount}");`
     console.log(`wallet_transaction/add: Query: ${query}`);
