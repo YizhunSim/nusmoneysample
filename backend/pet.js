@@ -37,6 +37,38 @@ router.get("/pet/by-aid", (request, response) => {
     );
 });
 
+router.post("/pet_contribution/add", (request, response) =>{
+    let pet_contribution = request.body;
+    console.log(`pet_contribution/add: ${JSON.stringify(pet_contribution)}`);
+    var query = `insert into pet_calendar (feed_id ,pet_id, contribution_date, contribution_amount)
+    values (null ,"${pet_contribution.pet_id}", now(), "${pet_contribution.contribution_amount}");`
+    console.log(`pet_contribution/add: Query: ${query}`);
+    database.connection.query( query, (error, records) =>{
+        if(error){
+            console.log(error)
+            response.status(500).send("Some error occured when adding a pet contribution");
+        }else{
+            response.status(200).send("Pet Contribution added succesfully");
+        }
+    })
+})
+
+router.post("/pet/add", (request, response) =>{
+    let transaction = request.body;
+    console.log(`pet/add: ${JSON.stringify(transaction)}`);
+    var query = `insert into wallet_transaction (transaction_id ,transaction_date, account_id, cryptocurrency_amount, cryptocurrency_id, usd_amount)
+    values (null ,now(), "${transaction.account_id}", "${transaction.cryptocurrency_amount}", "${transaction.cryptocurrency_id}", "${transaction.cryptocurrency_amount}");`
+    console.log(`wallet_transaction/add: Query: ${query}`);
+    database.connection.query( query, (error, records) =>{
+        if(error){
+            console.log(error)
+            response.status(500).send("Some error occured when adding a wallet transaction");
+        }else{
+            response.status(200).send("Wallet Transaction added succesfully");
+        }
+    })
+})
+
 module.exports = {
     router,
 };
