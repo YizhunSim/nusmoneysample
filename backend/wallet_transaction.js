@@ -58,11 +58,10 @@ router.get("/wallet_transaction/by-aid", (request, response) => {
 });
 
 router.post("/wallet_transaction/add", (request, response) =>{
-    console.log('HIT');
     let transaction = request.body;
     console.log(`wallet_transaction/add: ${JSON.stringify(transaction)}`);
-    var query = `insert into wallet_transaction (transaction_id, transaction_date, account_id, cryptocurrency_amount, cryptocurrency_id, usd_amount)
-    values (${transaction.transaction_id}, now(), "${transaction.account_id}", "${transaction.cryptocurrency_amount}", "${transaction.cryptocurrency_id}", "${transaction.usd_amount}");`
+    var query = `insert into wallet_transaction (transaction_id ,transaction_date, account_id, cryptocurrency_amount, cryptocurrency_id, usd_amount)
+    values (null ,now(), "${transaction.account_id}", "${transaction.cryptocurrency_amount}", "${transaction.cryptocurrency_id}", "${transaction.cryptocurrency_amount}");`
     console.log(`wallet_transaction/add: Query: ${query}`);
     database.connection.query( query, (error, records) =>{
         if(error){
