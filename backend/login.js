@@ -9,8 +9,8 @@ router = express.Router();
 
 // LOGIIN
 router.post('/login', async (req, res) => {
-    var username = req.body.username;
-	var password = req.body.password;
+    var username = req.body.user_email;
+	var password = req.body.user_password;
 
     let user, userJoinAccount;
     //Validate the data before we accept login request
@@ -56,6 +56,7 @@ router.post('/login', async (req, res) => {
                 userJoinAccount = await result;
                 console.log(`getUserAccount: ${JSON.stringify(userJoinAccount)}`);
                 res.header("auth-token", userJoinAccount[0].account_id).send("User successfully login");
+                console.log("Logged in successfully")
                 //res.status(200).send("User successfully login");
             }
         })
