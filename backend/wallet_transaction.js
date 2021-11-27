@@ -36,16 +36,16 @@ router.get("/wallet_transaction/by-tid", (request, response) => {
     );
 });
 
-router.get("/wallet_transaction/by-wid", (request, response) => {
-    if (request.query.wallet_id.length === 0 || isNaN(request.query.wallet_id)) {
-        console.log(`Invalid ID received. ID: ${request.query.wallet_id}`);
+router.get("/wallet_transaction/by-aid", (request, response) => {
+    if (request.query.account_id.length === 0 || isNaN(request.query.account_id)) {
+        console.log(`Invalid ID received. ID: ${request.query.account_id}`);
         response.status(400).send("Invalid ID received.");
         return;
     }
     database.connection.query(
         `select *
          from wallet_transaction
-         where transaction_id = ${request.query.wallet_id}`,
+         where transaction_id = ${request.query.account_id}`,
         (errors, results) => {
             if (errors) {
                 console.log(errors);
@@ -61,8 +61,8 @@ router.post("/wallet_transaction/add", (request, response) =>{
     console.log('HIT');
     let transaction = request.body;
     console.log(`wallet_transaction/add: ${JSON.stringify(transaction)}`);
-    var query = `insert into wallet_transaction (transaction_id, transaction_date, wallet_id, cryptocurrency_id, cryptocurrency_amount, fiat_amount, fiat_currency)
-    values (${transaction.transaction_id}, now(), "${transaction.wallet_id}", "${transaction.cryptocurrency_id}", "${transaction.cryptocurrency_amount}", "${transaction.fiat_amount}", "${transaction.fiat_currency}");`
+    var query = `insert into wallet_transaction (transaction_id, transaction_date, account_id, cryptocurrency_amount, cryptocurrency_id, usd_amount)
+    values (${transaction.transaction_id}, now(), "${transaction.account_id}", "${transaction.cryptocurrency_amount}", "${transaction.cryptocurrency_id}", "${transaction.usd_amount}");`
     console.log(`wallet_transaction/add: Query: ${query}`);
     database.connection.query( query, (error, records) =>{
         if(error){
