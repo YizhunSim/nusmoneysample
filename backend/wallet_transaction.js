@@ -45,7 +45,7 @@ router.get("/wallet_transaction/by-aid", (request, response) => {
     database.connection.query(
         `select *
          from wallet_transaction
-         where transaction_id = ${request.query.account_id}`,
+         where account_id = ${request.query.account_id}`,
         (errors, results) => {
             if (errors) {
                 console.log(errors);
