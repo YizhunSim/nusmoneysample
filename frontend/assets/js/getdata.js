@@ -24,15 +24,21 @@ function getFromServer() {
 function postData() {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-
+  var account_id=document.getElementbyID("account_id");
+  var cryptocurrency_amount=document.getElementbyID("crypto_amount");
+  var cryptocurrency_coin=document.getElementbyID("crypto_coin");
   // Populate this data from e.g. form.
   var raw = JSON.stringify({
-    type: 0,
+    account_id: account_id.value,
+    cryptocurrency_amount: cryptocurrency_amount.value,
+    cryptocurrency_id: cryptocurrency_coin.value,
+    /*type: 0,
     name: "dixant mittal",
     email: "dixant@email.com",
     tolerance: 0.5,
     wallet: 100000,
-  });
+    */
+  })
 
   var requestOptions = {
     method: "POST",
@@ -40,7 +46,7 @@ function postData() {
     body: raw,
   };
 
-  fetch("http://localhost:3000/user/add", requestOptions)
+  fetch("http://localhost:3000/wallet_transaction/add", requestOptions)
     .then((response) => response.text())
     .then((result) => $(".mypanel").html(result))
     .catch((error) => console.log("error", error));
