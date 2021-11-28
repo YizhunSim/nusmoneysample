@@ -73,10 +73,33 @@ router.post("/user/add", (request, response) =>{
                 data3 = await result;
                 console.log(`addUserAccount: ${JSON.stringify(data3)}`);
                 // console.log(`Added user and user account: ${request.query.account_id} associated with User: ${user.user_id}.`);
+                //response.status(200).send("User added successfully");
+                await addUserAccountPet(data3);
+            }
+        })
+    }
+
+    async function addUserAccountPet(data){
+        console.log(`I am here ${data.insertId}`);
+        console.log(`Request received: ${JSON.stringify(data)}`);
+        var query3 = `insert into pet (pet_id, pet_name, picture, account_id, pet_birthday, cryptocurrency_id, total_cpm_paid)
+        values (null, "Crypmon", "http://crypmon.com/jpg", ${data.insertId}, now(), 1, 0)`;
+
+        database.connection.query(query3, async (error, result) => {
+            console.log(query3);
+            if(error){
+                console.log(`Unable to add pet for account user: ${user.user_id}. Error: ${error}`);
+                response.status(500).send(`Unable to add user account: ${user.user_id}`);
+            }else{
+                data4 = await result;
+                console.log(`addUserAccount: ${JSON.stringify(data4)}`);
+                // console.log(`Added user and user account: ${request.query.account_id} associated with User: ${user.user_id}.`);
                 response.status(200).send("User added successfully");
             }
         })
     }
+
+
 
     insertUserRecord();
 })
