@@ -37,20 +37,51 @@ router.get("/pet/by-aid", (request, response) => {
     );
 });
 
+// Insert into pet_calendar contribution amount
+// Update pet table total_cpm_paid
+
 router.post("/pet_contribution/add", (request, response) =>{
     let pet_contribution = request.body;
     console.log(`pet_contribution/add: ${JSON.stringify(pet_contribution)}`);
-    var query = `insert into pet_calendar (feed_id ,pet_id, contribution_date, contribution_amount)
-    values (null ,"${pet_contribution.pet_id}", now(), "${pet_contribution.contribution_amount}");`
-    console.log(`pet_contribution/add: Query: ${query}`);
-    database.connection.query( query, (error, records) =>{
-        if(error){
-            console.log(error)
-            response.status(500).send("Some error occured when adding a pet contribution");
-        }else{
-            response.status(200).send("Pet Contribution added succesfully");
-        }
-    })
+
+    function insertPetContribution(){
+        var query1 = `insert into pet_calendar (feed_id ,pet_id, contribution_date, contribution_amount)
+        values (null ,"${pet_contribution.pet_id}", now(), "${pet_contribution.contribution_amount}");`
+        console.log(`pet_contribution/add: Query: ${query1}`);
+        database.connection.query(query1, async (error, records) => {
+            console.log('A');
+            if (error){
+                console.log(error)
+                response.status(500).send("Some error occured when adding a pet contribution");
+            }else{
+                const result = await records;
+                console.log(`InsertPetContribution Result: ${JSON.stringify(result)}`);
+                await updatePetTotalCpmPaid();
+            }
+        })
+    }
+
+    async function updatePetTotalCpmPaid(){
+        var query2 = ` update pet set total_cpm_paid = (
+            select sum(pet_calendar.contribution_amount) from pet_calendar
+            where pet_calendar.pet_id = ${pet_contribution.pet_id})
+            where pet.pet_id = ${pet_contribution.pet_id};`
+            console.log(`updatePetTotalCPMAmount Query: ${query2}`);
+
+            database.connection.query(query2, async (error, records) =>{
+                console.log(`C`);
+                if(error){
+                    console.log(error)
+                    response.status(500).send("updatePetTotalCpmPaid: Some error occured when updating pet total cpm paid");
+                }else{
+                    const result = await records;
+                    console.log(`updatePetTotalCpmPaid result: ${JSON.stringify(result)}`);
+                    response.status(200).send("Pet contribution added succesfully");
+                }
+            })
+
+    }
+    insertPetContribution();
 })
 
 router.post("/pet/add", (request, response) =>{
