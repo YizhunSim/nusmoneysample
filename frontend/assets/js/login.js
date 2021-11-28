@@ -36,9 +36,12 @@ function postLogin() {
 
   fetch("http://localhost:3000/login", requestOptions)
     .then((response) => {
+      console.log(response);
     for (var pair of response.headers.entries()) {
       console.log(pair[0]+ ': '+ pair[1]);}})
-    .then((result) => $(".mypanel").html(result))
+    .then((result) => {
+      $(".mypanel").html(result)
+    })
     .catch((error) => console.log("error", error));
 
   }
