@@ -1,4 +1,5 @@
-var pet_id = 1;
+var account_id = localStorage.account_id;
+var pet_id = account_id;
 
 function postFeeding(feedAmount){
     console.log("feed called");

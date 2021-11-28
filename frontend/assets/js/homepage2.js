@@ -1,4 +1,4 @@
-var account_id = 3; 
+var account_id = localStorage.account_id; 
 
 function Geeks() {
     console.log("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
