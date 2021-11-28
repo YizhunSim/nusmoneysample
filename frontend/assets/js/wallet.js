@@ -46,8 +46,11 @@ function postDepositTransaction(){
       }
       fetch('http://localhost:3000/wallet_transaction/add', requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log("Success"))
+      .then((result) => {
+          alert(result);
+        })
       .catch((error) => console.log('error', error))
+      depositAmount.value="";  
 }
 
 function postWithdrawTransaction(){
@@ -70,8 +73,9 @@ function postWithdrawTransaction(){
       }
       fetch('http://localhost:3000/wallet_transaction/add', requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log("Success"))
+      .then((result) => alert(result))
       .catch((error) => console.log('error', error))
+      withdrawAmount.value="";  
 }
 
 function appendQueryStr(){
