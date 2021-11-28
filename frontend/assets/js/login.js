@@ -38,16 +38,14 @@ function postLogin() {
     .then(response => response.json())
     .then((data) => {
         console.log(JSON.stringify(data));
-        var msg = JSON.stringify(data);
-        var aid=msg[msg.length-3];
-        console.log(aid);
-        localStorage.setItem('account_id', aid);
+        var userAccountId = data[0].accountId
+        console.log(userAccountId);
+        localStorage.setItem('account_id', userAccountId);
         window.location.replace('home2.html');
         })
-    .then((result) => $('.mypanel').html(result))
     .catch((error) => console.log('error', error))
 }
- 
+
 /*redirect based on auth-token availability
 for (var pair of response.headers.entries()) {
         // accessing the entries

@@ -57,9 +57,14 @@ router.post('/login', async (req, res) => {
             }else{
                 userJoinAccount = await result;
                 console.log(`getUserAccount: ${JSON.stringify(userJoinAccount)}`);
-                res.status(200).send({message: `Updated user successfully for AccountId: ${userJoinAccount[0].account_id}`});
-                //res.header("auth-token", userJoinAccount[0].account_id).send("User successfully login");
+                // const userResult = {"account_id": };
+                var accountIdObject = [];
+                for (var category in userJoinAccount){
+                    accountIdObject.push({ 'accountId' : userJoinAccount[0].account_id});
+                }
+                res.status(200).send(accountIdObject);
                 console.log("Logged in successfully")
+                //res.header("auth-token", userJoinAccount[0].account_id).send("User successfully login");
                 //res.status(200).send("User successfully login");
             }
         })
