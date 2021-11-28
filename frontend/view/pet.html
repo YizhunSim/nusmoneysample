@@ -55,6 +55,10 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="cryptmon-profile text-center">
               <img src="../assets/img/monster.png">
             </div>
+            <div class="feeding-header">
+              <h5>Current Pet Value</h5>
+              <h2 id="petValue"></h5>
+            </div>
             <button class="btn btn-danger btn-block btn-round" onclick="location.href='pet_calendar.html'">Pet Progress Calendar</button>
             <hr>
             <div class="feeding-header">
@@ -67,18 +71,19 @@ The above copyright notice and this permission notice shall be included in all c
               <img src="../assets/img/pizza.png">
             </div>
             <div class="social-line text-center">
-              <button class="btn btn-default">$3</button>
-              <button class="btn btn-default">$4</button>
-              <button class="btn btn-default">$5</button>
+              <button class="btn btn-default" onclick="postFeeding(3)">$<span id="contribute3">3</span></button>
+              <button class="btn btn-default" onclick="postFeeding(4)">$<span id="contribute4">4</span></button>
+              <button class="btn btn-default" onclick="postFeeding(5)">$<span id="contribute5">5</span></button>
             </div>
             <form class="register-form">
               <label>Other Amount</label>
-              <input type="text" class="form-control" placeholder="Insert amount here">
+              <input type="text" id="contributeOther" class="form-control" placeholder="Insert amount here">
                <!--Links to pet calendar-->
                <div class="text-center">
-                <a href="../view/pet_calendar.html" class="text-center btn btn-info btn-round">Submit other amount</a>   
+                 
                </div>
               </form>
+              <button class="text-center btn btn-info btn-round" onclick="postFeeding(postOtherAmount())">Submit other amount</button>  
           </div>
         </div>
       </div>

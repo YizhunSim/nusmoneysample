@@ -14,7 +14,7 @@ function getBalance(){
         var text1 = `${data[0].wallet_balance}`
         var text2 = `${data[0].account_name}`
         var text3 = `${data[0].wallet_id}`
-        $('#balanceId').html(text1);
+        $('#balanceId').html(text1+" CPM");
         $('#accountId').html(text2);
         $('#walletId').html(text3);
       })
@@ -48,6 +48,8 @@ function postDepositTransaction(){
       .then((response) => response.text())
       .then((result) => {
           alert(result);
+          $('#depositModal').modal('hide');
+          getBalance();
         })
       .catch((error) => console.log('error', error))
       depositAmount.value="";  
@@ -73,27 +75,11 @@ function postWithdrawTransaction(){
       }
       fetch('http://localhost:3000/wallet_transaction/add', requestOptions)
       .then((response) => response.text())
-      .then((result) => alert(result))
+      .then((result) => {
+          alert(result);
+          $('#withdrawModal').modal('hide');
+          getBalance();
+        })
       .catch((error) => console.log('error', error))
       withdrawAmount.value="";  
-}
-
-function appendQueryStr(){
-    $('a').each(function() {
-        var href = $(this).attr('href');
-        console.log("test");
-        console.log(href);
-        /*if (href) {
-            try {
-                var url = new URL(href);
-                var regex = /.*localhost:3000/;
-                if(!url.hostname.match(regex))
-                {
-                    url.searchParams.set("account_id", "DOP-MVP-5003880");
-                    $(this).attr('href', url.href);
-                }
-            }
-            catch{}
-        }*/
-    });
 }

@@ -1,31 +1,30 @@
-function postFeeding(){
-    console.log("deposit called");
+function postFeeding(feedAmount){
+    console.log("feed called");
     var myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
-    var accountId = account_id;
-    var depositAmount = document.getElementById("depositAmount");
-    var newDepositTransaction = JSON.stringify({
-        account_id: accountId,
-        cryptocurrency_amount: depositAmount.value,
-        cryptocurrency_id: 1
-        /*type: 0,
-        name: "dixant mittal",
-        email: "dixant@email.com",
-        tolerance: 0.5,
-        wallet: 100000,
-        */
+    //var accountId = account_id;
+    var contribute3 = feedAmount
+    console.log(contribute3)
+    var newContribute3 = JSON.stringify({
+        pet_id: 1,
+        contribution_amount: contribute3,
       })
-      console.log(newDepositTransaction);
+      console.log(newContribute3);
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
-        body: newDepositTransaction,
+        body: newContribute3,
       }
-      fetch('http://localhost:3000/wallet_transaction/add', requestOptions)
+      fetch('http://localhost:3000/pet_contribution/add', requestOptions)
       .then((response) => response.text())
       .then((result) => {
           alert(result);
         })
-      .catch((error) => console.log('error', error))
-      depositAmount.value="";  
+      .catch((error)     => console.log('error', error))
 }
+
+function postOtherAmount(){
+    var otherAmount = document.getElementById("contributeOther");
+    return otherAmount.value;
+}
+
