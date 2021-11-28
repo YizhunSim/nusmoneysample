@@ -47,93 +47,49 @@ The above copyright notice and this permission notice shall be included in all c
         <div class="col-lg-4 ml-auto mr-auto">
       <div class="card card-register" >
         
-      <img class="card-img-top" src="https://miro.medium.com/max/1838/0*AUhzzy5X_r6P_kxA.jpg" alt="Card image cap">
+      <img class="card-img-top" src="https://media.istockphoto.com/vectors/space-background-wide-realistic-cosmos-with-shining-stars-long-banner-vector-id1283095709?k=20&m=1283095709&s=170667a&w=0&h=FBCrFEbfgaK-G44Sxpr6NiOu3kJHhrt2F6TmKrc4keM=" alt="Card image cap">
       
       <div class="card-body" style="background: #EFEFEF" id="wallet">
-        <h6 class="btn btn-primary btn-sm" style="margin-top: 0%; margin-bottom: 5%;" onclick="location.href='home2.html'">Back </h6>
-      <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-
-      </div>
-      <h3 class="card-subtitle text-center" style="color: #000000; padding-top: 1%;">Total Balance</h5>
-      <h5 class="text-center" id="balanceId" style="color: #000000;"></h5>
-      
-        <h6 class="badge badge-primary" style="padding-top: 1%; padding-bottom: 1%;" >User:</h6><p id="accountId"style="color: #000000;">account_id</p>
-      
-      
-        <h6 class="badge badge-primary" style="padding-top: 1%; padding-bottom: 1%;">Wallet ID:</h6><p id="walletId" style="color: #000000;">user_id</p>
-  
-     
-      
-      <!--Enter ID: <input type="text" id="paramId"/> </br>-->
-      <div class="row justify-content-around">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#depositModal">
-          Deposit
-        </button>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#withdrawModal">
-          Withdraw
-        </button>
-        <!-- deposit Modal -->
-        <div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="depositModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <span><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button></span><h5 class="modal-title" id="exampleModalLabel">Deposit</h5>
-                
-              </div>
-              <div class="modal-body">
-                <p>Input Deposit amount (USD):</p>
-                <div class="form-group has-success">
-                  <input type="text" id = "depositAmount" placeholder ="Insert amount" class="text-muted form-control">
-                  </div>  
-              </div>
-              <button type="button"  class="btn btn-primary" onclick="postDepositTransaction()">Deposit</button>
-              <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
+        <h6 class="badge badge-info" style="margin-top: 0%; margin-bottom: 5%;">Home </h6>
+        <h5 style="color: black;" id="accountId"></h5>
+        
+        <div class="card"  style="flex-direction: row; align-items: center;" onClick="location.href='pet.html'">
+            <img style="width:30%; height:fit-content; padding-left: 6% " src="https://cdn-icons-png.flaticon.com/128/4600/4600417.png" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="text-left">Feed Monster</h5>
+              <span class="card-subtitle">
+                Level 1
+              </span>
             </div>
           </div>
-        </div>
-        <!-- withdraw Modal -->
-        <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <span><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button></span><h5 class="modal-title" id="exampleModalLabel">Withdraw</h5>
-                
-              </div>
-              <div class="modal-body">
-                <p>Input withdraw amount (USD):</p>
-                <div class="form-group has-success">
-                  <input type="text" id = "withdrawAmount" placeholder ="Insert amount" value="" class="text-muted form-control">
-                  </div>  
-              </div>
-              <!--onclick="addMoneyToWalletBalance()", prompt success box if deposit success and close modal-->
-              <button type="button"  class="btn btn-primary" onclick="postWithdrawTransaction()">Withdraw</button>
-              <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
+          <div class="card"  style="flex-direction: row; align-items: center;" onClick="location.href='wallet.html'">
+            <img style="width:30%; height:fit-content; padding-left: 6%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtHVBNiac26_avjvlACjf6tIRVgxtfrpLmIw&usqp=CAU" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="text-left" id="balanceId"></h5>
+              <span class="card-subtitle">
+                Wallet Balance
+              </span>
             </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="justify-content-around">
-          <button class="btn btn-info btn-round btn-block" onClick="location.href='pet.html'">
-            <i class="fa fa-heart"></i> View Pets
-          </button>
-      </div>
-      <!--<button class="btn btn-info" onclick="getTransactionByTID()">Search Transaction by TID</button> </br>
-      <button class="btn btn-info" onclick="getTransactionByAID()">Search Transaction by AID</button> </br>-->
-      <div class="row justify-content-around">
-        <button class="btn btn-default btn-round btn-block" onClick="location.href='pet.html'">
-          View Past Transactions
-        </button>
-    </div>
+          </div> 
+          
+          <div class="card"  style="flex-direction: row; align-items: center;">
+            <img style="width:30%; height:fit-content; padding-left: 6% ;" src="https://styles.redditmedia.com/t5_2rmov/styles/communityIcon_8jj0o28zosp21.png" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="text-left" id="balanceId"></h5>
+              <span class="card-subtitle">
+                Marketplace
+              </span>
+            </div>
+          </div> 
+          <div class="card"  style="flex-direction: row; align-items: center;">
+            <img style="width:30%; height:fit-content; padding-left: 6% ;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsvpavMmBh6sfnt86ntV-qw0rbdISx0ngStA&usqp=CAU" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="text-left" id="balanceId"></h5>
+              <span class="card-subtitle">
+                Discover
+              </span>
+            </div>
+          </div> 
       </div>
     </div>  
     </div>
@@ -159,7 +115,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="../assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
   <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
-  <script src="../assets/js/wallet.js" type="text/javascript"></script>
+  <script src="../assets/js/homepage2.js" type="text/javascript"></script>
   
 </body>
 
