@@ -15,6 +15,8 @@ router.post('/login', async (req, res) => {
     let user, userJoinAccount;
     //Validate the data before we accept login request
     console.log(req.body);
+    console.log(`username: ${username}`);
+    console.log(`password: ${password}`);
 
     getUserIdAccount();
 
@@ -55,7 +57,8 @@ router.post('/login', async (req, res) => {
             }else{
                 userJoinAccount = await result;
                 console.log(`getUserAccount: ${JSON.stringify(userJoinAccount)}`);
-                res.header("auth-token", userJoinAccount[0].account_id).send("User successfully login");
+                res.status(200).send({message: `Updated user successfully for AccountId: ${userJoinAccount[0].account_id}`});
+                //res.header("auth-token", userJoinAccount[0].account_id).send("User successfully login");
                 console.log("Logged in successfully")
                 //res.status(200).send("User successfully login");
             }
