@@ -35,6 +35,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link href="../assets/css/paper-kit.css?v=2.2.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link href="../assets/css/register.css" rel="stylesheet" />
 </head>
 
 <body class="register-page sidebar-collapse">
@@ -169,15 +170,34 @@ The above copyright notice and this permission notice shall be included in all c
               </a>
             </div>
             <form class="register-form">
+              <label>Name</label>
+              <input type="text" class="form-control" placeholder="Name" id=user_name>
               <label>Email</label>
-              <input type="text" class="form-control" placeholder="Email">
+              <input type="text" class="form-control" placeholder="Email" id=user_email>
               <label>Password</label>
-              <input type="password" class="form-control" placeholder="Password">
-              <button class="btn btn-danger btn-block btn-round">Register</button>
+              <input type="password" class="form-control" placeholder="Password"
+              id=user_password>
+              <label>Select Profile</label>
+              <div id="radio-button-wrapper">
+              <span class="image-radio">
+               <input name="profile" style="display:none" type="radio"/>
+               <img src="https://robohash.org/aspernaturvoluptassit.png?size=50x50&set=set1">
+              </span>
+             <span class="image-radio">
+              <input name="profile" style="display:none" type="radio"/>
+              <img src="https://robohash.org/minimaenimillo.png?size=50x50&set=set1">
+              </span>
+              <span class="image-radio">
+              <input name="profile" style="display:none" type="radio"/>
+              <img src="https://robohash.org/suntfugiatad.png?size=50x50&set=set1">
+              </span>
+              <span class="image-radio">
+              <input name="profile" style="display:none" type="radio"/>
+              <img src='https://robohash.org/optioaliquidvoluptas.png?size=50x50&set=set1'>
+              </span>
+              </div>
+              <button class="btn btn-danger btn-block btn-round" onClick=postRegister()>Register</button>
             </form>
-            <div class="forgot">
-              <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
-            </div>
           </div>
         </div>
       </div>
@@ -190,6 +210,7 @@ The above copyright notice and this permission notice shall be included in all c
     </div>
   </div>
   <!--   Core JS Files   -->
+  
   <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
@@ -202,8 +223,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="../assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
   <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
-  <!--  Google Maps Plugin    -->
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <script src="../assets/js/register.js"></script>
 </body>
 
 </html>
