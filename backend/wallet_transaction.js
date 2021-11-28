@@ -1,5 +1,6 @@
 const database = require("./database");
 const express = require("express");
+const { json } = require("body-parser");
 
 router = express.Router();
 
@@ -36,16 +37,16 @@ router.get("/wallet_transaction/by-tid", (request, response) => {
     );
 });
 
-router.get("/wallet_transaction/by-wid", (request, response) => {
-    if (request.query.wallet_id.length === 0 || isNaN(request.query.wallet_id)) {
-        console.log(`Invalid ID received. ID: ${request.query.wallet_id}`);
+router.get("/wallet_transaction/by-aid", (request, response) => {
+    if (request.query.account_id.length === 0 || isNaN(request.query.account_id)) {
+        console.log(`Invalid ID received. ID: ${request.query.account_id}`);
         response.status(400).send("Invalid ID received.");
         return;
     }
     database.connection.query(
         `select *
          from wallet_transaction
-         where transaction_id = ${request.query.wallet_id}`,
+         where account_id = ${request.query.account_id}`,
         (errors, results) => {
             if (errors) {
                 console.log(errors);
@@ -57,22 +58,58 @@ router.get("/wallet_transaction/by-wid", (request, response) => {
     );
 });
 
+
+
+//Withdraw and Deposit
+
+//1. Insert in wallet_trnansaction
+//2. Update account - wallet_balance after step 1 has been completed
 router.post("/wallet_transaction/add", (request, response) =>{
-    console.log('HIT');
-    let transaction = request.body;
-    console.log(`wallet_transaction/add: ${JSON.stringify(transaction)}`);
-    var query = `insert into wallet_transaction (transaction_id, transaction_date, wallet_id, cryptocurrency_id, cryptocurrency_amount, fiat_amount, fiat_currency)
-    values (${transaction.transaction_id}, now(), "${transaction.wallet_id}", "${transaction.cryptocurrency_id}", "${transaction.cryptocurrency_amount}", "${transaction.fiat_amount}", "${transaction.fiat_currency}");`
-    console.log(`wallet_transaction/add: Query: ${query}`);
-    database.connection.query( query, (error, records) =>{
-        if(error){
-            console.log(error)
-            response.status(500).send("Some error occured when adding a wallet transaction");
-        }else{
-            response.status(200).send("Wallet Transaction added succesfully");
+        let transaction = request.body;
+        console.log(`wallet_transaction/add: ${JSON.stringify(transaction)}`);
+
+        function insertWalletTransaction(){
+            var query1 = `insert into wallet_transaction (transaction_id ,transaction_date, account_id, cryptocurrency_amount, cryptocurrency_id, usd_amount)
+            values (null ,now(), "${transaction.account_id}", "${transaction.cryptocurrency_amount}", "${transaction.cryptocurrency_id}", "${transaction.cryptocurrency_amount}");`
+            console.log(`insertWallet query: ${query1}`);
+            database.connection.query( query1, async (error, records) =>{
+                console.log(`A`);
+                if (error){
+                    console.log(error)
+                response.status(500).send("insertWalletTransaction: Some error occured when adding a wallet transaction");
+                }else{
+                    const result = await records;
+                    console.log(`InsertWallet Result: ${JSON.stringify(result)}`);
+                    await updateAccountWalletBalance();
+                }
+            })
+            console.log(`B`)
         }
-    })
-})
+
+        async function updateAccountWalletBalance(){
+            var query2 = `update account set wallet_balance = (
+                select sum(wallet_transaction.cryptocurrency_amount) from wallet_transaction
+                where wallet_transaction.account_id = "${transaction.account_id}")
+                where account.account_id = "${transaction.account_id}";`
+            console.log(`updateAccountWallet query: ${query2}`);
+            database.connection.query(query2, async (error, records) =>{
+                console.log(`C`);
+                if(error){
+                    console.log(error)
+                    response.status(500).send("updateAccountWalletBalance: Some error occured when updating account's wallet balance");
+                }else{
+                    const result = await records;
+                    console.log(`updateAccountWalletBalance result: ${JSON.stringify(result)}`);
+                    response.status(200).send("Wallet Transaction added succesfully");
+                }
+            })
+            console.log(`D`);
+        }
+        console.log(`E`);
+        insertWalletTransaction();
+
+});
+
 
 // // Define a mapping for a DELETE request on API path /wallet_transaction/delete
 // // to an arrow function which requires a parameter named id from the request
