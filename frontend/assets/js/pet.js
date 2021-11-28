@@ -1,3 +1,5 @@
+var pet_id = 1;
+
 function postFeeding(feedAmount){
     console.log("feed called");
     var myHeaders = new Headers()
@@ -6,7 +8,7 @@ function postFeeding(feedAmount){
     var contribute3 = feedAmount
     console.log(contribute3)
     var newContribute3 = JSON.stringify({
-        pet_id: 1,
+        pet_id: pet_id,
         contribution_amount: contribute3,
       })
       console.log(newContribute3);
@@ -19,6 +21,7 @@ function postFeeding(feedAmount){
       .then((response) => response.text())
       .then((result) => {
           alert(result);
+          getPetValue();
         })
       .catch((error)     => console.log('error', error))
 }
@@ -28,3 +31,14 @@ function postOtherAmount(){
     return otherAmount.value;
 }
 
+function getPetValue(){
+    console.log("account balance loaded");
+    fetch('http://localhost:3000/pet/by-pid?pet_id='+ pet_id, { method: 'GET' })
+      .then((response) => response.json())
+      .then((data) => {
+          console.log(data);
+        var text1 = `${data[0].total_cpm_paid}`
+        $('#petValue').html(text1+" CPM");
+      })
+      .catch((error) => console.log('error', error))
+}
