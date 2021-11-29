@@ -1,3 +1,5 @@
+var account_id = localStorage.account_id
+
 function getTransactions() {
   fetch('http://localhost:3000/transaction/all', { method: 'GET' })
     .then((response) => response.json())
@@ -23,16 +25,19 @@ function getTransactions() {
                     </tr>`
       })
       text += '</table>'
-      $('.mypanel').html(text)
+      $('.myPanel').html(text)
     })
     .catch((error) => console.log('error', error))
 }
 
 function getTransactionByTID() {
   var id = document.getElementById('paramId').value
-  fetch(`http://localhost:3000/wallet_transaction/by-tid?transaction_id=${id}`, {
-    method: 'GET',
-  })
+  fetch(
+    `http://localhost:3000/wallet_transaction/by-tid?transaction_id=${id}`,
+    {
+      method: 'GET',
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       var text = `
@@ -55,20 +60,32 @@ function getTransactionByTID() {
     .catch((error) => console.log('error', error))
 }
 
+/*use mainly this for transaction history*/
 function getTransactionByAID() {
-  var id = document.getElementById('paramId').value
+  var id = account_id
   fetch(`http://localhost:3000/wallet_transaction/by-aid?account_id=${id}`, {
     method: 'GET',
   })
     .then((response) => response.json())
     .then((data) => {
-      var text = `
-            <div class="card card-nav-tabs" style="width: 20rem;">
-            <div class="card-header card-header-danger"></div>`
-
+      var text = ""
+      var count = 1
+      data.forEach((item) => {
+        text += `
+                    <tr>
+                        <th scope="row">${count}</th>
+                        <td>${item.transaction_date}</td>
+                        <td>${item.cryptocurrency_amount}</td>
+                        <td>${item.cryptocurrency_id}</td>
+                        <td>${item.usd_amount}</td>
+                    </tr>`
+                    count++
+      })
+          
+      /*
       data.forEach((item) => {
         text += ` <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Account_id: ${item.account_id}</li>
+                  <li class="list-group-item">Transaction_id: ${item.transaction_id}</li>
                   <li class="list-group-item">Transaction_date: ${item.transaction_date}</li>
                   <li class="list-group-item">Crypto_coins_used: ${item.cryptocurrency_amount}</li>
                   <li class="list-group-item">Crypto_coin_id: ${item.cryptocurrency_id}</li>
@@ -76,8 +93,8 @@ function getTransactionByAID() {
                   </ul>
                     `
       })
-      text += '</table>'
-      $('.mypanel').html(text)
+      */
+      $('#transaction_hist').html(text)
     })
     .catch((error) => console.log('error', error))
 }
@@ -85,9 +102,9 @@ function getTransactionByAID() {
 function postData() {
   var myHeaders = new Headers()
   myHeaders.append('Content-Type', 'application/json')
-  var account_id = document.getElementById("account_id")
-  var cryptocurrency_amount = document.getElementById("crypto_amount")
-  var cryptocurrency_coin = document.getElementById("crypto_coin")
+  var account_id = document.getElementById('account_id')
+  var cryptocurrency_amount = document.getElementById('crypto_amount')
+  var cryptocurrency_coin = document.getElementById('crypto_coin')
   // Populate this data from e.g. form.
   var raw = JSON.stringify({
     account_id: account_id.value,
