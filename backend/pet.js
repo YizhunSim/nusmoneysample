@@ -121,7 +121,7 @@ router.post("/pet_contribution/add", (request, response) =>{
                 console.log(`Current wallet balance: ${result[0].wallet_balance}`);
 
                 if (result[0].wallet_balance - pet_contribution.contribution_amount < 0){
-                    response.status(500).send("Account current wallet balance is insufficient for pet contribution!"); // status(500) sets the status code to 500, which means some error occurred in the server.
+                    response.status(400).send("Account current wallet balance is insufficient for pet contribution!"); // status(500) sets the status code to 500, which means some error occurred in the server.
                 } else{
                     await insertPetContribution();
                 }

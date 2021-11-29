@@ -18,16 +18,23 @@ function postFeeding(feedAmount) {
     headers: myHeaders,
     body: newContribute3,
   };
-  fetch("http://localhost:3000/pet_contribution/add", requestOptions)
-    .then((response) => response.text())
+  fetch('http://localhost:3000/pet_contribution/add', requestOptions)
+    .then((response) => {
+      if (!response.ok) {
+        throw Error('You are too poor')
+      }
+    })
     .then((result) => {
-      alert(result);
-      getPetValue();
+      alert("Pet feeding in progress");
+      getPetValue()
       //   var walletBalance = getWalletBalance();
       //   console.log(walletBalance);
-      putUpdateWalletBalance(feedAmount);
+      putUpdateWalletBalance(feedAmount)
     })
-    .catch((error) => console.log("error", error));
+    .catch((error) => {
+      console.log('error', error)
+      alert(error)
+    })
 }
 
 function postOtherAmount() {
@@ -50,6 +57,7 @@ function getPetValue() {
 function getWalletBalance() {}
 
 function putUpdateWalletBalance(feedAmount) {
+  console.log("step3")
   var walletBalance;
   fetch("http://localhost:3000/account/by-uid?user_id=" + account_id, {
     method: "GET",
