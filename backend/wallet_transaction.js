@@ -88,9 +88,12 @@ router.post("/wallet_transaction/add", (request, response) =>{
 
         async function updateAccountWalletBalance(){
             var query2 = `update account set wallet_balance = (
-                select sum(wallet_transaction.cryptocurrency_amount) from wallet_transaction
+                select sum(wallet_transaction.cryptocurrency_amount) - total_cpm_paid from wallet_transaction
+                left join pet
+                on wallet_transaction.account_id = pet.account_id
                 where wallet_transaction.account_id = "${transaction.account_id}")
-                where account.account_id = "${transaction.account_id}";`
+                where account.account_id = "${transaction.account_id}";`;
+
             console.log(`updateAccountWallet query: ${query2}`);
             database.connection.query(query2, async (error, records) =>{
                 console.log(`C`);

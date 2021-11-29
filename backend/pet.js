@@ -104,7 +104,35 @@ router.post("/pet_contribution/add", (request, response) =>{
     let pet_contribution = request.body;
     console.log(`pet_contribution/add: ${JSON.stringify(pet_contribution)}`);
 
-    function insertPetContribution(){
+    function checkCurrentWalletBalance(){
+    var query = `select wallet_balance from account where account_id = "${pet_contribution.pet_id}"`;
+    // After the validation check, call a mysql query to request data from account using the account id received in the request.
+    database.connection.query(
+        query, async (errors, results) => {
+            // if the query failed, return a "failure" message to the frontend client.
+            if (errors) {
+                console.log(errors);
+                response.status(500).send("Some error occured when adding a pet contribution"); // status(500) sets the status code to 500, which means some error occurred in the server.
+            }
+            // Otherwise, populate the response with the results.
+            else {
+                const result = await results;
+                console.log(`checkCurrentWalletBalance Result: ${JSON.stringify(result)}`);
+                console.log(`Current wallet balance: ${result[0].wallet_balance}`);
+
+                if (result[0].wallet_balance - pet_contribution.contribution_amount < 0){
+                    response.status(500).send("Account current wallet balance is insufficient for pet contribution!"); // status(500) sets the status code to 500, which means some error occurred in the server.
+                } else{
+                    await insertPetContribution();
+                }
+
+            }
+        }
+    );
+
+    }
+
+    async function insertPetContribution(){
         var query1 = `insert into pet_calendar (feed_id ,pet_id, contribution_date, contribution_amount)
         values (null ,"${pet_contribution.pet_id}", now(), "${pet_contribution.contribution_amount}");`
         console.log(`pet_contribution/add: Query: ${query1}`);
@@ -141,7 +169,7 @@ router.post("/pet_contribution/add", (request, response) =>{
             })
 
     }
-    insertPetContribution();
+    checkCurrentWalletBalance();
 })
 
 router.post("/pet/add", (request, response) =>{
