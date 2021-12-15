@@ -36,6 +36,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <script src="../assets/js/account.js"></script>
   <script src="../assets/js/transaction.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0-rc.0/web3.min.js"></script>
 </head>
 
 <body class="register-page sidebar-collapse" onload="getBalance()" onbeforeunload = "Geeks()"></body>>
@@ -50,13 +51,40 @@ The above copyright notice and this permission notice shall be included in all c
       <img class="card-img-top" src="https://miro.medium.com/max/1838/0*AUhzzy5X_r6P_kxA.jpg" alt="Card image cap">
       
       <div class="card-body" style="background: #EFEFEF" id="wallet">
-        <h6 class="btn btn-primary btn-sm" style="margin-top: 0%; margin-bottom: 5%;" onclick="location.href='home2.html'">Back </h6>
-      
+        <div class="row justify-content-around">
+          <h6 class="btn btn-primary btn-sm" style="margin-top: 0%; margin-bottom: 5%;" onclick="location.href='home2.html'">Back </h6>
+        <h6 class="btn btn-primary btn-sm" style="margin-top: 0%; margin-bottom: 5%;" onclick="Connect()">Connect </h6>
+        </div>
+        
       <h3 class="card-subtitle text-center" style="color: #000000; padding-top: 1%;">Total Balance</h5>
       <h5 class="text-center" id="balanceId" style="color: #000000;"></h5>
+      <div class = "border border-white overflow-auto" style="max-height: 300px; min-height: min-content;">
+        <div class="scrollspy-example">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Currency</th>
+                <th scope="col">Amount</th>
+              </tr>
+              <tr>
+                <td id="currencyName1"></td>
+                <td id="currencyBalance1"></td>
+              </tr>
+              <tr>
+                <td id="currencyName2"></td>
+                <td id="currencyBalance2"></td>
+              </tr>
+              <tr>
+                <td id="currencyName3"></td>
+                <td id="currencyBalance3"></td>
+              </tr>
+            </thead>
+            <tbody id="transaction_hist" style="background-color: whitesmoke;">
+            </tbody>
+          </table>
+        </div>
       
-        <h6 class="badge badge-primary" style="padding-top: 1%; padding-bottom: 1%;" >User:</h6><p id="accountId"style="color: #000000;">account_id</p>
-      
+       </div>
       
         <h6 class="badge badge-primary" style="padding-top: 1%; padding-bottom: 1%;">Wallet ID:</h6><p id="walletId" style="color: #000000;">user_id</p>
   
